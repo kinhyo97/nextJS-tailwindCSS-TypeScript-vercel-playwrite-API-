@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import mongoose, { Schema, Document, models } from "mongoose";
 
 export interface IUser extends Document {
