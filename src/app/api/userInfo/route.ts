@@ -13,7 +13,8 @@ export async function GET(req: Request) {
       return NextResponse.json({ success: false, message: "userId 없음" }, { status: 400 });
     }
 
-    const user = await User.findById(userId).lean();
+    // 타입 문제 해결: any 캐스팅
+    const user: any = await User.findById(userId).lean();
 
     if (!user) {
       return NextResponse.json({ success: false, message: "사용자 없음" }, { status: 404 });
@@ -24,6 +25,7 @@ export async function GET(req: Request) {
       email: user.email,
       favoriteKeywords: user.favoriteKeywords || [],
     });
+
   } catch (err) {
     console.error(err);
     return NextResponse.json({ success: false, message: "서버 오류" }, { status: 500 });
