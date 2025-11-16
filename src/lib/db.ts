@@ -6,8 +6,15 @@ export async function connectDB() {
     return;
   }
 
+  const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
+
+  if (!uri) {
+    console.error("Missing MongoDB URI in environment variables");
+    return;
+  }
+
   try {
-    await mongoose.connect(process.env.MONGO_URI as string);
+    await mongoose.connect(uri);
     console.log("MongoDB connected");
   } catch (err) {
     console.error("MongoDB connection error:", err);
